@@ -1,0 +1,15 @@
+# Add GLAD
+add_library(glad STATIC dependencies/glad/src/glad.c)
+target_include_directories(glad PUBLIC dependencies/glad/include)
+
+# Add GLFW
+add_subdirectory(dependencies/glfw)
+
+# Find OpenGL
+find_package(OpenGL REQUIRED)
+
+# Add executable
+add_executable(MyProject "src/main.cpp")
+
+# Link libraries
+target_link_libraries(MyProject PRIVATE glad glfw OpenGL::GL)
