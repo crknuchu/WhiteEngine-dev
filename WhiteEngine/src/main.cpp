@@ -1,20 +1,8 @@
-#include "application.h"
+#include "engine.h"
 
 int main() {
 
-	Application a;
-
-	a.Init();
-
-	while (!a.ShouldClose()) {
-		a.SwapBuffers();
-	}
-
-	a.Terminate();
-
-	return 0;
-
-	/*Engine e;
+	Engine e;
 
 	e.StartWindow();
 	e.InitAll();
@@ -23,5 +11,5 @@ int main() {
 		e.Render();
 	}
 
-	return 0;*/
+	return 0;
 }

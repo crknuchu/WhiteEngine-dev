@@ -14,6 +14,7 @@ public:
 
 	Application() = default;
 	~Application();
+
 private:
 	int CreateWindow();
 };
