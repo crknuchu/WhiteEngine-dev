@@ -1,5 +1,8 @@
+cmake_minimum_required(VERSION 3.5)
+project(WhiteEngine)
+
 # Add GLAD
-add_library(glad STATIC dependencies/glad/src/glad.c)
+add_library(glad STATIC dependencies/glad/src/glad.c "src/engine.h" "src/application.h")
 target_include_directories(glad PUBLIC dependencies/glad/include)
 
 # Add GLFW
@@ -9,7 +12,7 @@ add_subdirectory(dependencies/glfw)
 find_package(OpenGL REQUIRED)
 
 # Add executable
-add_executable(MyProject "src/main.cpp")
+add_executable(WhiteEngine "src/main.cpp" "src/engine.cpp" "src/application.cpp")
 
 # Link libraries
-target_link_libraries(MyProject PRIVATE glad glfw OpenGL::GL)
+target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL) 

@@ -1,41 +1,27 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include "application.h"
 
 int main() {
-    // Initialize GLFW
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW" << std::endl;
-        return -1;
-    }
 
-    // Create a GLFW window
-    GLFWwindow* window = glfwCreateWindow(800, 600, "White Engine", nullptr, nullptr);
-    if (!window) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
+	Application a;
 
-    // Initialize GLAD
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
+	a.Init();
 
-    // Main loop
-    while (!glfwWindowShouldClose(window)) {
-        // Rendering code goes here
-        
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+	while (!a.ShouldClose()) {
+		a.SwapBuffers();
+	}
 
-    // Cleanup
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    return 0;
+	a.Terminate();
+
+	return 0;
+
+	/*Engine e;
+
+	e.StartWindow();
+	e.InitAll();
+
+	while (e.IsRunning()) {
+		e.Render();
+	}
+
+	return 0;*/
 }
