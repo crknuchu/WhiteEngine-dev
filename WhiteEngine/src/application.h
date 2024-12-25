@@ -1,6 +1,6 @@
 #pragma once
 
-struct GLFWwindow; //why?
+struct GLFWwindow;
 
 class Application {
 

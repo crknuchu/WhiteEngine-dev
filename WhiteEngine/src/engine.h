@@ -1,13 +1,13 @@
 #pragma once
 
-#include "application.h"
+class Application;
 
 class Engine {
 private:
 
 public:
 	static Engine* instance;
-	Application application;
+	Application* application;
 
 	int StartWindow();
 	void InitAll();

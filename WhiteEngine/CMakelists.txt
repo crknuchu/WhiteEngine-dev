@@ -15,6 +15,10 @@ add_subdirectory(dependencies/glfw)
 # Find OpenGL
 find_package(OpenGL REQUIRED)
 
+# Add GLM
+set(GLM_INCLUDE_DIRS "dependencies/glm")
+include_directories(${GLM_INCLUDE_DIRS})
+
 # Add executable
 add_executable(WhiteEngine
 			"src/main.cpp"
