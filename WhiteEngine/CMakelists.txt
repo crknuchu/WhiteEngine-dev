@@ -1,8 +1,12 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.15...3.31)
 project(WhiteEngine)
 
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Add GLAD
-add_library(glad STATIC dependencies/glad/src/glad.c "src/engine.h" "src/application.h")
+add_library(glad STATIC dependencies/glad/src/glad.c)
 target_include_directories(glad PUBLIC dependencies/glad/include)
 
 # Add GLFW
@@ -12,7 +16,13 @@ add_subdirectory(dependencies/glfw)
 find_package(OpenGL REQUIRED)
 
 # Add executable
-add_executable(WhiteEngine "src/main.cpp" "src/engine.cpp" "src/application.cpp")
+add_executable(WhiteEngine
+			"src/main.cpp"
+			"src/engine.cpp"
+			"src/engine.h"
+			"src/application.cpp"
+			"src/application.h"
+			)
 
 # Link libraries
-target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL) 
+target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL)
