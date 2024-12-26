@@ -11,9 +11,9 @@ public:
 
 	int StartWindow();
 	void InitAll();
-	bool IsRunning();
+	bool IsRunning() const;
 	void Render();
-	bool ShouldClose();
+	bool ShouldClose() const;
 	
 	Engine();
 	~Engine();

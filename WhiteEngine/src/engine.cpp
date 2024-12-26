@@ -10,7 +10,7 @@ void Engine::InitAll() {
     // Initialization code here
 }
 
-bool Engine::IsRunning() {
+bool Engine::IsRunning() const{
     glfwPollEvents();
     return !ShouldClose();
 }
@@ -26,7 +26,7 @@ void Engine::Render() {
     application->SwapBuffers();
 }
 
-bool Engine::ShouldClose() {
+bool Engine::ShouldClose() const{
     return glfwWindowShouldClose(application->window) != 0;
 }
 

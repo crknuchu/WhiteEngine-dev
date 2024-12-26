@@ -32,15 +32,17 @@ include_directories(${GLM_INCLUDE_DIRS})
 # Add stb
 set(STB_IMAGE_INCLUDE_DIRS "include/stb")
 include_directories(${STB_IMAGE_INCLUDE_DIRS})
+add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
 
 # Add executable
 add_executable(WhiteEngine  ${SOURCE_FILES} ${HEADER_FILES})
 
+# copy res folder to build directory
 add_custom_target(copy_resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/res
         ${PROJECT_BINARY_DIR}/res
-        COMMENT "Copying resources into binary directory")
+        COMMENT "Copying resources into build directory")
 
 add_dependencies(WhiteEngine copy_resources)
 
