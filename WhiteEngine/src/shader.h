@@ -5,9 +5,7 @@
 
 #include <string>
 
-class Shader
-{
-
+class Shader {
 public:
     GLuint ID;
 
