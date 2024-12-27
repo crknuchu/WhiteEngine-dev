@@ -74,7 +74,7 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader("res/shaders/tmp.vs", "res/shaders/tmp.fs");
+    Shader ourShader("res/shaders/tmp.vert", "res/shaders/tmp.frag");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -204,7 +204,7 @@ int main()
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
-    ourShader.use();
+    ourShader.Use();
     ourShader.setInt("texture1", 0);
     ourShader.setInt("texture2", 1);
 
@@ -235,7 +235,7 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture2);
 
         // activate shader
-        ourShader.use();
+        ourShader.Use();
 
         // pass projection matrix to shader (note that in this case it could change every frame)
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
