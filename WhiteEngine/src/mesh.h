@@ -2,9 +2,6 @@
 
 #include "shader.h"
 
-#include <string>
-#include <vector>
-
 constexpr auto MAX_BONE_INFLUENCE = 4;
 
 struct Vertex {

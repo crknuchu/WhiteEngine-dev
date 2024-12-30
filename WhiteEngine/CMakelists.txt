@@ -32,7 +32,7 @@ include_directories(${GLM_INCLUDE_DIRS})
 # Add stb
 set(STB_IMAGE_INCLUDE_DIRS "include/stb")
 include_directories(${STB_IMAGE_INCLUDE_DIRS})
-add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
+#add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
 
 # Add Assimp
 # Set the path to the Assimp library

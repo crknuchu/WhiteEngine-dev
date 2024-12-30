@@ -5,7 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader.h"
+#include "stb_image.h"
+
 #include "model.h"
 #include "camera.h"
 
@@ -35,8 +36,8 @@ int main()
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -77,11 +78,11 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader ourShader("res/shaders/tmp.vert", "res/shaders/tmp.frag");
+    Shader ourShader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
 
     // load models
     // -----------
-    Model ourModel("res/models/backpack/backpack.obj");
+    Model ourModel("res/models/backpack/backpack.obj", false);
 
 
     // draw in wireframe
