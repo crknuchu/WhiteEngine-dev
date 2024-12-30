@@ -34,6 +34,16 @@ set(STB_IMAGE_INCLUDE_DIRS "include/stb")
 include_directories(${STB_IMAGE_INCLUDE_DIRS})
 add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
 
+# Add Assimp
+# Set the path to the Assimp library
+set(ASSIMP_DIR "include/assimp")
+
+# Specify the include directory for Assimp
+include_directories(${ASSIMP_DIR}/include)
+
+# Specify the library directory for Assimp
+link_directories(${ASSIMP_DIR}/lib)
+
 # Add executable
 add_executable(WhiteEngine  ${SOURCE_FILES} ${HEADER_FILES})
 
@@ -47,4 +57,4 @@ add_custom_target(copy_resources ALL
 add_dependencies(WhiteEngine copy_resources)
 
 # Link libraries
-target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL)
+target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd)
