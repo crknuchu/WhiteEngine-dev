@@ -14,6 +14,8 @@
 
 #include "engine.h"
 
+#include "spdlog/spdlog.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -35,7 +37,7 @@ float lastFrame = 0.0f;
 
 #include <chrono>
 
-void printFPS() {
+void static printFPS() {
     static std::chrono::time_point<std::chrono::steady_clock> oldTime = std::chrono::high_resolution_clock::now();
     static int fps; fps++;
 
@@ -48,6 +50,7 @@ void printFPS() {
 
 int main()
 {
+    spdlog::info("Welcome to spdlog!");
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();

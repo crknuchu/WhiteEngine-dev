@@ -44,6 +44,9 @@ include_directories(${ASSIMP_DIR}/include)
 # Specify the library directory for Assimp
 link_directories(${ASSIMP_DIR}/lib)
 
+
+add_subdirectory(include/spdlog)
+
 # Add executable
 add_executable(WhiteEngine  ${SOURCE_FILES} ${HEADER_FILES})
 
@@ -57,4 +60,4 @@ add_custom_target(copy_resources ALL
 add_dependencies(WhiteEngine copy_resources)
 
 # Link libraries
-target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd)
+target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd spdlog::spdlog)
