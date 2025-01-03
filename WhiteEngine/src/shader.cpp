@@ -2,7 +2,8 @@
 
 #include <fstream>
 #include <sstream>
-#include <iostream>
+#include "spdlog/spdlog.h"
+//#include <iostream>
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     // 1. retrieve the vertex/fragment source code from filePath
@@ -36,6 +37,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     catch (std::ifstream::failure& e)
     {
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: " << e.what() << std::endl;
+		spdlog::error("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: {}", e.what());
     }
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
@@ -143,7 +145,7 @@ void Shader::CheckCompileErrors(GLuint shader, std::string type)
         if (!success)
         {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+			spdlog::error("ERROR::SHADER_COMPILATION_ERROR of type: {} \n {}", type, reinterpret_cast<const char*>(infoLog));
         }
     }
     else
@@ -152,7 +154,7 @@ void Shader::CheckCompileErrors(GLuint shader, std::string type)
         if (!success)
         {
             glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            spdlog::error("ERROR::PROGRAM_LINKING_ERROR of type: {} \n {}", type, reinterpret_cast<const char*>(infoLog));
         }
     }
 }

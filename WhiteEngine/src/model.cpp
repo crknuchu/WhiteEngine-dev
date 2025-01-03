@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <iostream>
+//#include <iostream>
 #include <map>
 #include <vector>
 
@@ -17,6 +17,8 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
+#include "spdlog/spdlog.h"
 
 Model::Model(std::string const& path)
 {
@@ -38,6 +40,7 @@ void Model::loadModel(std::string const& path)
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
         std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+		spdlog::error("ERROR::ASSIMP:: {}", importer.GetErrorString());
         return;
     }
     // retrieve the directory path of the filepath

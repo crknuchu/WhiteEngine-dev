@@ -6,12 +6,12 @@
 
 #include "spdlog/spdlog.h"
 
-#include <iostream>
+//#include <iostream>
 
 int Application::Init() {
 
     if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW" << std::endl;
+		spdlog::error("Failed to initialize GLFW");
         return -1;
     }
 
@@ -24,7 +24,7 @@ int Application::Init() {
     }
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
+		spdlog::error("Failed to initialize GLAD");
         return -1;
     }
 
