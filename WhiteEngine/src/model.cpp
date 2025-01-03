@@ -18,7 +18,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-Model::Model(std::string const& path, bool gamma = false) : gammaCorrection(gamma)
+Model::Model(std::string const& path)
 {
     loadModel(path);
 }
@@ -179,7 +179,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial * mat, aiTextureType
     return textures;
 }
 
-unsigned int Model::TextureFromFile(const char* path, const std::string & directory, bool gamma)
+unsigned int Model::TextureFromFile(const char* path, const std::string & directory)
 {
     std::string filename = std::string(path);
     filename = directory + '/' + filename;

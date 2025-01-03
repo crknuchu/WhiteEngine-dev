@@ -16,7 +16,7 @@ public:
 	bool IsRunning() const;
 	void Render();
 	bool ShouldClose() const;
-	Scene CreateScene(unsigned long maxObjects);
+	Scene& CreateScene();
 	void DestroyScene();
 	
 	Engine();
