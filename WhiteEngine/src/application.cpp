@@ -1,17 +1,23 @@
 #include "application.h"
+#include "model.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "spdlog/spdlog.h"
+
 #include <iostream>
 
-unsigned int VBO, VAO, shaderProgram;
-
 int Application::Init() {
+
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
     }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     if (CreateWindow()) {
         return -1;
@@ -26,13 +32,16 @@ int Application::Init() {
 }
 
 int Application::CreateWindow() {
-    window = glfwCreateWindow(800, 600, "White Engine", nullptr, nullptr);
+
+    window = glfwCreateWindow(screenWidth, screenHeight, windowTitle, nullptr, nullptr);
     if (!window) {
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window);
 
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, GLFW_FrameBufferSizeCallback);
+    
     return 0;
 }
 
@@ -50,7 +59,13 @@ void Application::Terminate() {
 }
 
 Application::~Application() {
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteProgram(shaderProgram);
+	Terminate();
 }
+
+void Application::GLFW_FrameBufferSizeCallback(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);
+}
+
+
+
+
