@@ -28,6 +28,8 @@ int Application::Init() {
         return -1;
     }
 
+    glEnable(GL_DEPTH_TEST);
+
     spdlog::info("GL version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
     spdlog::info("Device: {}, {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)), reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 

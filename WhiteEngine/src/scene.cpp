@@ -6,9 +6,11 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Scene::Scene() {
-	camera = Camera(glm::vec3(0.0f, 0.0f, 5.0f));
+	camera = Camera(glm::vec3(3.0f, 3.0f, 5.0f));
 	model = Model("res/models/brick_cube/brick_cube.obj");
 	shader = Shader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
+	camera.ProcessMouseMovement(-300, -200);
+	
 }
 
 //Scene::Scene(Camera camera, Model model, Shader shader) {
