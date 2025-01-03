@@ -4,6 +4,14 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+// This is a workaround for laptops with dual GPUs
+#ifdef _WIN32
+extern "C" {
+    _declspec(dllexport) unsigned long AmdPowerXpressRequestHighPerformance = 0x00000001;
+    _declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+}
+#endif
+
 Engine* Engine::instance{ nullptr };
 
 void Engine::InitAll() {
@@ -19,6 +27,7 @@ int Engine::StartWindow() {
     if (application->Init()) {
         return -1;
     }
+
     return 0;
 }
 
