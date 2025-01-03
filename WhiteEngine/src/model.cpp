@@ -39,7 +39,6 @@ void Model::loadModel(std::string const& path)
     // check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
-        std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
 		spdlog::error("ERROR::ASSIMP:: {}", importer.GetErrorString());
         return;
     }
@@ -215,7 +214,7 @@ unsigned int Model::TextureFromFile(const char* path, const std::string & direct
     }
     else
     {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
+        spdlog::error("Texture failed to load at path: {}", path);
         stbi_image_free(data);
     }
 
