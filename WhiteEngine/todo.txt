@@ -1,10 +1,8 @@
 std::string instead of char* everywhere?
-change main.cpp to use the template
 learn when and when not to use pointers in C++
 create a plan for the structure of the engine
 	scene
 	asset manager
 	meshes
 	models
-	resource manager
 create my own namespace?

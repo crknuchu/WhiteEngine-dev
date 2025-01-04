@@ -1,20 +1,20 @@
 #pragma once
 
-#include "camera.h"
-#include "model.h"
-#include "shader.h"
 //#include <vector>
+class Model;
+class Shader;
+class Camera;
 
 
 class Scene {
 private:
 	
 	////std::vector<Model> models;
-	Model model;
-	Shader shader;
+	Model* model = nullptr;
+	Shader* shader = nullptr;
 	
 public:
-	Camera camera;
+	Camera* camera = nullptr;
 	//Scene(Camera camera, Model model, Shader shader);
 	void Draw();
 	Scene();

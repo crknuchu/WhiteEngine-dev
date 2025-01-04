@@ -1,10 +1,12 @@
 #include "engine.h"
 #include "application.h"
+#include "scene.h"
+#include "camera.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "scene.h"
+
 #include "spdlog/spdlog.h"
 
 
@@ -19,7 +21,7 @@ extern "C" {
 Engine* Engine::instance{ nullptr };
 
 void Engine::Initialize() {
-	CreateScene();
+	*scene = CreateScene();
 	glfwSetWindowUserPointer(application->window, this);
 	glfwSetCursorPosCallback(application->window, CursorPositionCallback);
 }
@@ -84,6 +86,8 @@ Engine::Engine() {
 Engine::~Engine() {
 	application->Terminate();
 	delete application; // Free the allocated memory
+	application = nullptr;
+	DestroyScene();
 }
 
 void Engine::CursorPositionCallback(GLFWwindow* window, double xposIn, double yposIn)
@@ -94,20 +98,20 @@ void Engine::CursorPositionCallback(GLFWwindow* window, double xposIn, double yp
 	float xpos = static_cast<float>(xposIn);
 	float ypos = static_cast<float>(yposIn);
 
-	if (engine->scene->camera.firstMouse)
+	if (engine->scene->camera->firstMouse)
 	{
-		engine->scene->camera.lastX = xpos;
-		engine->scene->camera.lastY = ypos;
-		engine->scene->camera.firstMouse = false;
+		engine->scene->camera->lastX = xpos;
+		engine->scene->camera->lastY = ypos;
+		engine->scene->camera->firstMouse = false;
 	}
 
-	float xoffset = xpos - engine->scene->camera.lastX;
-	float yoffset = engine->scene->camera.lastY - ypos; // reversed since y-coordinates go from bottom to top
+	float xoffset = xpos - engine->scene->camera->lastX;
+	float yoffset = engine->scene->camera->lastY - ypos; // reversed since y-coordinates go from bottom to top
 
-	engine->scene->camera.lastX = xpos;
-	engine->scene->camera.lastY = ypos;
+	engine->scene->camera->lastX = xpos;
+	engine->scene->camera->lastY = ypos;
 
-	engine->scene->camera.ProcessMouseMovement(xoffset, yoffset);
+	engine->scene->camera->ProcessMouseMovement(xoffset, yoffset);
 }
 
 void Engine::ProcessKeyboardInput() {
@@ -116,11 +120,11 @@ void Engine::ProcessKeyboardInput() {
 		glfwSetWindowShouldClose(application->window, true);
 
 	if (glfwGetKey(application->window, GLFW_KEY_W) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(FORWARD, deltaTime);
+		scene->camera->ProcessKeyboard(FORWARD, deltaTime);
 	if (glfwGetKey(application->window, GLFW_KEY_S) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(BACKWARD, deltaTime);
+		scene->camera->ProcessKeyboard(BACKWARD, deltaTime);
 	if (glfwGetKey(application->window, GLFW_KEY_A) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(LEFT, deltaTime);
+		scene->camera->ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(application->window, GLFW_KEY_D) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(RIGHT, deltaTime);
+		scene->camera->ProcessKeyboard(RIGHT, deltaTime);
 }
