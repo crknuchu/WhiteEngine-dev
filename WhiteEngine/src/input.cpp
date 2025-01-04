@@ -7,9 +7,9 @@ static double mouse_x;
 static double mouse_y;
 
 void Input::Initialize(GLFWwindow* window) {
-	glfwSetKeyCallback(window, KeyCallback);
+	/*glfwSetKeyCallback(window, KeyCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
-	glfwSetCursorPosCallback(window, CursorPositionCallback);
+	glfwSetCursorPosCallback(window, CursorPositionCallback);*/
 }
 
 void Input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -47,3 +47,4 @@ void Input::GetMousePosition(double& xpos, double& ypos) {
 	xpos = mouse_x;
 	ypos = mouse_y;
 }
+

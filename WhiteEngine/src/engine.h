@@ -2,6 +2,7 @@
 
 class Application;
 class Scene;
+class GLFWwindow;
 
 class Engine {
 private:
@@ -22,6 +23,8 @@ public:
 	void Update();
 	void CalculateDeltaTime();
 	void ProcessInput();
+
+	static void CursorPositionCallback(GLFWwindow* window, double xposIn, double yposIn);
 
 	Engine();
 	~Engine();

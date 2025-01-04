@@ -2,6 +2,8 @@
 #include "spdlog/spdlog.h"
 
 int main() {
+	spdlog::info("© 2024 White Engine. All rights reserved.");
+
 	Engine engine;
 
 	engine.StartWindow();

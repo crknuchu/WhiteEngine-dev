@@ -5,9 +5,8 @@
 #include <GLFW/glfw3.h>
 
 #include "scene.h"
-#include "input.h"
-
 #include "spdlog/spdlog.h"
+
 
 // This is a workaround for laptops with dual GPUs
 #ifdef _WIN32
@@ -21,7 +20,8 @@ Engine* Engine::instance{ nullptr };
 
 void Engine::Initialize() {
 	CreateScene();
-	Input::Initialize(application->window);
+	glfwSetWindowUserPointer(application->window, this);
+	glfwSetCursorPosCallback(application->window, CursorPositionCallback);
 }
 
 bool Engine::IsRunning() const {
@@ -53,44 +53,17 @@ void Engine::CalculateDeltaTime() {
 
 void Engine::ProcessInput() {
 
-	if (Input::IsKeyPressed(GLFW_KEY_ESCAPE)) {
+	if (glfwGetKey(application->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(application->window, true);
-	}
 
-	if (Input::IsKeyPressed(GLFW_KEY_W) == GLFW_PRESS)
+	if (glfwGetKey(application->window, GLFW_KEY_W) == GLFW_PRESS)
 		scene->camera.ProcessKeyboard(FORWARD, deltaTime);
-	if (Input::IsKeyPressed(GLFW_KEY_S) == GLFW_PRESS)
+	if (glfwGetKey(application->window, GLFW_KEY_S) == GLFW_PRESS)
 		scene->camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (Input::IsKeyPressed(GLFW_KEY_A) == GLFW_PRESS)
+	if (glfwGetKey(application->window, GLFW_KEY_A) == GLFW_PRESS)
 		scene->camera.ProcessKeyboard(LEFT, deltaTime);
-	if (Input::IsKeyPressed(GLFW_KEY_D) == GLFW_PRESS)
+	if (glfwGetKey(application->window, GLFW_KEY_D) == GLFW_PRESS)
 		scene->camera.ProcessKeyboard(RIGHT, deltaTime);
-
-	double xpos = 0;
-	double ypos = 0;
-
-	Input::GetMousePosition(xpos, ypos);
-
-	//spdlog::info("xpos: {}, ypos: {}", xpos, ypos);
-	//spdlog::info("lastX: {}, lastY: {}", scene->camera.lastX, scene->camera.lastY);
-
-	if (scene->camera.firstMouse)
-	{
-		scene->camera.lastX = xpos;
-		scene->camera.lastY = ypos;
-		scene->camera.firstMouse = false;
-	}
-
-	double xoffset = xpos - scene->camera.lastX;
-	double yoffset = scene->camera.lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-	scene->camera.lastX = xpos;
-	scene->camera.lastY = ypos;
-	
-	scene->camera.ProcessMouseMovement(xoffset, yoffset);
-	
-	//why does the camera jump to a random spot the first time i move the mouse?
-	//TODO: fix that
 }
 
 bool Engine::ShouldClose() const {
@@ -126,4 +99,27 @@ Engine::Engine() {
 Engine::~Engine() {
 	application->Terminate();
 	delete application; // Free the allocated memory
+}
+
+void Engine::CursorPositionCallback(GLFWwindow* window, double xposIn, double yposIn)
+{
+	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(window));
+
+	float xpos = static_cast<float>(xposIn);
+	float ypos = static_cast<float>(yposIn);
+
+	if (engine->scene->camera.firstMouse)
+	{
+		engine->scene->camera.lastX = xpos;
+		engine->scene->camera.lastY = ypos;
+		engine->scene->camera.firstMouse = false;
+	}
+
+	float xoffset = xpos - engine->scene->camera.lastX;
+	float yoffset = engine->scene->camera.lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	engine->scene->camera.lastX = xpos;
+	engine->scene->camera.lastY = ypos;
+
+	engine->scene->camera.ProcessMouseMovement(xoffset, yoffset);
 }
