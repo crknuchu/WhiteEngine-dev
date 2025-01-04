@@ -1,7 +1,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
-#include <unordered_map>
-//class GLFWwindow;
+
+class GLFWwindow;
 class Camera;
 
 class Input {
@@ -13,6 +13,4 @@ public:
     static bool IsKeyPressed(int key);
     static bool IsMouseButtonPressed(int button);
     static void GetMousePosition(double& xpos, double& ypos);
-
-	static void test(GLFWwindow* window, float deltaTime, Camera camera);
 };

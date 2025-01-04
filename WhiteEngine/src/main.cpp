@@ -1,6 +1,5 @@
 #include "engine.h"
 #include "spdlog/spdlog.h"
-#include "scene.h"
 
 int main() {
 	Engine engine;

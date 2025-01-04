@@ -19,11 +19,9 @@ extern "C" {
 
 Engine* Engine::instance{ nullptr };
 
-
 void Engine::Initialize() {
+	CreateScene();
 	Input::Initialize(application->window);
-	//scene = CreateScene();
-	Scene& scene = CreateScene();
 }
 
 bool Engine::IsRunning() const {
@@ -34,7 +32,6 @@ int Engine::StartWindow() {
 	if (application->Init()) {
 		return -1;
 	}
-
 	return 0;
 }
 
@@ -44,8 +41,8 @@ void Engine::Render() {
 }
 
 void Engine::Update() {
-	glfwPollEvents();
 	CalculateDeltaTime();
+	glfwPollEvents();
 }
 
 void Engine::CalculateDeltaTime() {
@@ -55,6 +52,7 @@ void Engine::CalculateDeltaTime() {
 }
 
 void Engine::ProcessInput() {
+
 	if (Input::IsKeyPressed(GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(application->window, true);
 	}
@@ -67,6 +65,32 @@ void Engine::ProcessInput() {
 		scene->camera.ProcessKeyboard(LEFT, deltaTime);
 	if (Input::IsKeyPressed(GLFW_KEY_D) == GLFW_PRESS)
 		scene->camera.ProcessKeyboard(RIGHT, deltaTime);
+
+	double xpos = 0;
+	double ypos = 0;
+
+	Input::GetMousePosition(xpos, ypos);
+
+	//spdlog::info("xpos: {}, ypos: {}", xpos, ypos);
+	//spdlog::info("lastX: {}, lastY: {}", scene->camera.lastX, scene->camera.lastY);
+
+	if (scene->camera.firstMouse)
+	{
+		scene->camera.lastX = xpos;
+		scene->camera.lastY = ypos;
+		scene->camera.firstMouse = false;
+	}
+
+	double xoffset = xpos - scene->camera.lastX;
+	double yoffset = scene->camera.lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	scene->camera.lastX = xpos;
+	scene->camera.lastY = ypos;
+	
+	scene->camera.ProcessMouseMovement(xoffset, yoffset);
+	
+	//why does the camera jump to a random spot the first time i move the mouse?
+	//TODO: fix that
 }
 
 bool Engine::ShouldClose() const {

@@ -1,6 +1,5 @@
 #include "input.h"
-#include "camera.h"
-#include "spdlog/spdlog.h"
+#include <unordered_map>
 
 static std::unordered_map<int, bool> keys;
 static std::unordered_map<int, bool> mouse_buttons;
@@ -47,26 +46,4 @@ bool Input::IsMouseButtonPressed(int button) {
 void Input::GetMousePosition(double& xpos, double& ypos) {
 	xpos = mouse_x;
 	ypos = mouse_y;
-}
-
-
-void Input::test(GLFWwindow* window, float deltaTime, Camera camera) {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, true);
-	}
-
-
-	if (Input::IsKeyPressed(GLFW_KEY_W) == GLFW_PRESS) {
-		//spdlog::info("deltatime {}",deltaTime);
-		camera.ProcessKeyboard(FORWARD, deltaTime);
-	}
-		
-	if (Input::IsKeyPressed(GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (Input::IsKeyPressed(GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, deltaTime);
-	if (Input::IsKeyPressed(GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, deltaTime);
-
-	
 }

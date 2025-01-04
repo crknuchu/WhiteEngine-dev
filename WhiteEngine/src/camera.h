@@ -30,6 +30,10 @@ public:
     glm::vec3 Right;
     glm::vec3 WorldUp;
 
+    bool firstMouse = true;
+	double lastX = 800.0 / 2.0;
+    double lastY = 600.0 / 2.0;
+
     // euler Angles
     float Yaw;
     float Pitch;

@@ -46,13 +46,13 @@ int Application::CreateWindow() {
 
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, GLFW_FrameBufferSizeCallback);
-    
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     return 0;
 }
 
 void Application::SwapBuffers() {
     glfwSwapBuffers(window);
-    glfwPollEvents();
 }
 
 int Application::ShouldClose() {
