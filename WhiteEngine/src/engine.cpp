@@ -51,21 +51,6 @@ void Engine::CalculateDeltaTime() {
 	lastFrame = currentFrame;
 }
 
-void Engine::ProcessInput() {
-
-	if (glfwGetKey(application->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(application->window, true);
-
-	if (glfwGetKey(application->window, GLFW_KEY_W) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(FORWARD, deltaTime);
-	if (glfwGetKey(application->window, GLFW_KEY_S) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (glfwGetKey(application->window, GLFW_KEY_A) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(LEFT, deltaTime);
-	if (glfwGetKey(application->window, GLFW_KEY_D) == GLFW_PRESS)
-		scene->camera.ProcessKeyboard(RIGHT, deltaTime);
-}
-
 bool Engine::ShouldClose() const {
 	return glfwWindowShouldClose(application->window) != 0;
 }
@@ -103,6 +88,7 @@ Engine::~Engine() {
 
 void Engine::CursorPositionCallback(GLFWwindow* window, double xposIn, double yposIn)
 {
+	// is there a better way to do this?
 	Engine* engine = static_cast<Engine*>(glfwGetWindowUserPointer(window));
 
 	float xpos = static_cast<float>(xposIn);
@@ -122,4 +108,19 @@ void Engine::CursorPositionCallback(GLFWwindow* window, double xposIn, double yp
 	engine->scene->camera.lastY = ypos;
 
 	engine->scene->camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+void Engine::ProcessKeyboardInput() {
+
+	if (glfwGetKey(application->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(application->window, true);
+
+	if (glfwGetKey(application->window, GLFW_KEY_W) == GLFW_PRESS)
+		scene->camera.ProcessKeyboard(FORWARD, deltaTime);
+	if (glfwGetKey(application->window, GLFW_KEY_S) == GLFW_PRESS)
+		scene->camera.ProcessKeyboard(BACKWARD, deltaTime);
+	if (glfwGetKey(application->window, GLFW_KEY_A) == GLFW_PRESS)
+		scene->camera.ProcessKeyboard(LEFT, deltaTime);
+	if (glfwGetKey(application->window, GLFW_KEY_D) == GLFW_PRESS)
+		scene->camera.ProcessKeyboard(RIGHT, deltaTime);
 }

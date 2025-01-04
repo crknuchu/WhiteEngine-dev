@@ -22,7 +22,7 @@ public:
 	void DestroyScene();
 	void Update();
 	void CalculateDeltaTime();
-	void ProcessInput();
+	void ProcessKeyboardInput();
 
 	static void CursorPositionCallback(GLFWwindow* window, double xposIn, double yposIn);
 

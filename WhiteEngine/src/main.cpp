@@ -2,7 +2,7 @@
 #include "spdlog/spdlog.h"
 
 int main() {
-	spdlog::info("© 2024 White Engine. All rights reserved.");
+	spdlog::info("© 2024 crknuchu. All rights reserved.");
 
 	Engine engine;
 
@@ -15,7 +15,7 @@ int main() {
 
 	spdlog::info("Engine is running");
 	while (!engine.ShouldClose()) {
-		engine.ProcessInput();
+		engine.ProcessKeyboardInput();
 		engine.Update();
 		engine.Render();
 	}
