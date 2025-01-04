@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "scene.h"
+#include "input.h"
 
 #include "spdlog/spdlog.h"
 
@@ -18,12 +19,19 @@ extern "C" {
 
 Engine* Engine::instance{ nullptr };
 
+float lastX = 800 / 2.0f;
+float lastY = 600 / 2.0f;
+bool firstMouse = true;
+
+// timing
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
 void Engine::InitAll() {
-    
+	Input::Initialize(application->window);
 }
 
 bool Engine::IsRunning() const{
-    glfwPollEvents();
     return !ShouldClose();
 }
 
@@ -36,6 +44,28 @@ int Engine::StartWindow() {
 }
 
 void Engine::Render() {
+    float currentFrame = static_cast<float>(glfwGetTime());
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+
+    if (Input::IsKeyPressed(GLFW_KEY_ESCAPE)) {
+        glfwSetWindowShouldClose(application->window, true);
+    }
+
+    if (Input::IsKeyPressed(GLFW_KEY_W) == GLFW_PRESS)
+        scene->camera.ProcessKeyboard(FORWARD, deltaTime);
+    if (Input::IsKeyPressed(GLFW_KEY_S) == GLFW_PRESS)
+        scene->camera.ProcessKeyboard(BACKWARD, deltaTime);
+    if (Input::IsKeyPressed(GLFW_KEY_A) == GLFW_PRESS)
+        scene->camera.ProcessKeyboard(LEFT, deltaTime);
+    if (Input::IsKeyPressed(GLFW_KEY_D) == GLFW_PRESS)
+        scene->camera.ProcessKeyboard(RIGHT, deltaTime);
+
+	double xpos, ypos;
+	Input::GetMousePosition(xpos, ypos);
+	scene->camera.ProcessMouseMovement(xpos, ypos, true);
+
     application->SwapBuffers();
 }
 

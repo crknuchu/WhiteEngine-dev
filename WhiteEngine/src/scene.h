@@ -8,12 +8,13 @@
 
 class Scene {
 private:
-	Camera camera;
+	
 	////std::vector<Model> models;
 	Model model;
 	Shader shader;
 	
 public:
+	Camera camera;
 	//Scene(Camera camera, Model model, Shader shader);
 	void Draw();
 	Scene();

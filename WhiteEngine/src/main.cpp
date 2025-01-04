@@ -8,7 +8,7 @@ int main() {
 	engine.StartWindow();
 	spdlog::info("Window started");
 
-	//engine.InitAll();
+	engine.InitAll();
 	//spdlog::info("Engine initialized");
 	
 	auto& scene = engine.CreateScene();
