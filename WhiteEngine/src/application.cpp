@@ -5,8 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "spdlog/spdlog.h"
-
-//#include <iostream>
+#include "stb_image.h"
 
 int Application::Init() {
 
@@ -48,7 +47,21 @@ int Application::CreateWindow() {
     glfwSetFramebufferSizeCallback(window, GLFW_FrameBufferSizeCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+    LoadIcon();
+
     return 0;
+}
+
+void Application::LoadIcon() {
+    int icon_width, icon_height, icon_channels;
+    unsigned char* pixels = stbi_load("res/icon.png", &icon_width, &icon_height, &icon_channels, 4);
+
+    GLFWimage images[1];
+    images[0].width = icon_width;
+    images[0].height = icon_height;
+    images[0].pixels = pixels;
+
+    glfwSetWindowIcon(window, 1, images);
 }
 
 void Application::SwapBuffers() {

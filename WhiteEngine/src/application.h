@@ -14,6 +14,7 @@ public:
 	void SwapBuffers();
 	void Terminate();
 	int ShouldClose();
+	void LoadIcon();
 
 	Application() = default;
 	~Application();
