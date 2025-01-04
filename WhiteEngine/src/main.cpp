@@ -8,15 +8,15 @@ int main() {
 	engine.StartWindow();
 	spdlog::info("Window started");
 
-	engine.InitAll();
-	//spdlog::info("Engine initialized");
+	engine.Initialize();
+	spdlog::info("Engine initialized");
 	
-	auto& scene = engine.CreateScene();
 
 	spdlog::info("Engine is running");
 	while (!engine.ShouldClose()) {
+		engine.ProcessInput();
+		engine.Update();
 		engine.Render();
-		scene.Draw();
 	}
 
 	spdlog::info("Engine is shutting down");
