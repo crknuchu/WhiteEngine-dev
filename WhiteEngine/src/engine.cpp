@@ -6,9 +6,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
 #include "spdlog/spdlog.h"
-
 
 // This is a workaround for laptops with dual GPUs
 #ifdef _WIN32
@@ -21,7 +19,7 @@ extern "C" {
 Engine* Engine::instance{ nullptr };
 
 void Engine::Initialize() {
-	*scene = CreateScene();
+	CreateScene();
 	glfwSetWindowUserPointer(application->window, this);
 	glfwSetCursorPosCallback(application->window, CursorPositionCallback);
 }
@@ -57,16 +55,13 @@ bool Engine::ShouldClose() const {
 	return glfwWindowShouldClose(application->window) != 0;
 }
 
-Scene& Engine::CreateScene()
+void Engine::CreateScene()
 {
 	if (scene != nullptr)
 	{
-		spdlog::warn("Scene already exists. Destroying old scene..");
 		DestroyScene();
 	}
 	scene = new Scene();
-
-	return *scene;
 }
 
 void Engine::DestroyScene()
@@ -85,7 +80,7 @@ Engine::Engine() {
 
 Engine::~Engine() {
 	application->Terminate();
-	delete application; // Free the allocated memory
+	delete application;
 	application = nullptr;
 	DestroyScene();
 }

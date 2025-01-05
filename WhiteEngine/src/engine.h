@@ -18,7 +18,7 @@ public:
 	bool IsRunning() const;
 	void Render();
 	bool ShouldClose() const;
-	Scene& CreateScene();
+	void CreateScene();
 	void DestroyScene();
 	void Update();
 	void CalculateDeltaTime();

@@ -26,7 +26,7 @@ int Application::Init() {
 		spdlog::error("Failed to initialize GLAD");
         return -1;
     }
-
+    
     glEnable(GL_DEPTH_TEST);
 
     spdlog::info("GL version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
