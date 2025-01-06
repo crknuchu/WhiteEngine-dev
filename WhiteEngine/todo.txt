@@ -6,3 +6,5 @@ create a plan for the structure of the engine
 	meshes
 	models
 create my own namespace?
+learn about smart pointers
+update scene class
