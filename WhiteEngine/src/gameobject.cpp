@@ -4,29 +4,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 GameObject::GameObject(Model* model, Shader* shader) {
-	modelMatrix = glm::mat4(1.0f);
 	this->model = model;
 	this->shader = shader;
-	position = glm::vec3(0.0f);
-	rotation = glm::vec3(0.0f);
-	scale = glm::vec3(1.0f);
 }
 
 GameObject::GameObject() {
-	modelMatrix = glm::mat4(1.0f);
-	model = nullptr;
-	shader = nullptr;
-	position = glm::vec3(0.0f);
-	rotation = glm::vec3(0.0f);
-	scale = glm::vec3(1.0f);
 }
 
 GameObject::~GameObject() {
 }
 
 void GameObject::draw() {
-
-
 	shader->setMat4("model", getModelMatrix());
 	model->Draw(*shader);
 }

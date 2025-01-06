@@ -3,14 +3,14 @@
 
 class GameObject {
 private:
-	Model* model;
-	Shader* shader;
-	glm::vec3 position;
-	glm::vec3 rotation;
-	glm::vec3 scale;
-	glm::mat4 modelMatrix;
-public:
+	Model* model = nullptr;
+	Shader* shader = nullptr;
+	glm::vec3 position = glm::vec3(0.0f);
+	glm::vec3 rotation = glm::vec3(0.0f);
+	glm::vec3 scale = glm::vec3(1.0f);
+	glm::mat4 modelMatrix = glm::mat4(1.0f);;
 
+public:
 	GameObject(Model* model, Shader* shader);
 	GameObject();
 	~GameObject();

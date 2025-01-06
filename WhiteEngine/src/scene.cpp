@@ -12,7 +12,7 @@
 #include "spdlog/spdlog.h"
 
 Scene::Scene() {
-	camera = new Camera(glm::vec3(0.0f, 0.0f, 5.0f));
+	setCamera(new Camera(glm::vec3(0.0f, 0.0f, 5.0f)));
 	model = new Model("res/models/brick_cube/brick_cube.obj");
 	shader = new Shader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
 	gameobject = new GameObject(model, shader);
@@ -34,14 +34,22 @@ Scene::~Scene() {
 void Scene::Draw() {
 	glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
+	// set the shader
 	shader->Use();
-	// view/projection transformations
-	glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)800 / (float)600, 0.1f, 100.0f); //TODO: change 800 and 600 to window width and height
-	glm::mat4 view = camera->GetViewMatrix();
-	shader->setMat4("projection", projection);
-	shader->setMat4("view", view);
+
+	// set camera view/projection transformations
+	shader->setMat4("projection", camera->GetProjectionMatrix(800, 600)); //change 800, 600 to window width and height
+	shader->setMat4("view", camera->GetViewMatrix());
 
 	// render the loaded model
 	gameobject->draw();
+}
+
+void Scene::Update() {
+	//gameobject->update();
+}
+
+void Scene::setCamera(Camera* camera) {
+	this->camera = camera;
 }
