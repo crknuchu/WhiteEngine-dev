@@ -1,19 +1,17 @@
 #pragma once
 
-//#include <vector>
+#include <vector>
+
 class Model;
 class Shader;
 class Camera;
 class GameObject;
 
-
 class Scene {
 private:
-	
-	// std::vector<GameObject*> gameobjects;
-	Model* model = nullptr;
+	std::vector<GameObject*> gameobjects;
+	Model* model = nullptr; //this need to be replaced with an asset manager
 	Shader* shader = nullptr;
-	GameObject* gameobject = nullptr;
 
 public:
 	Camera* camera = nullptr;
@@ -23,7 +21,7 @@ public:
 	Scene();
 	~Scene();
 
-	//void addGameObject(std::shared_ptr<GameObject> gameobject);
+	void addGameObject(GameObject* gameobject);
 	//void addLight(std::shared_ptr<Light> light);
 	void setCamera(Camera* camera);
 };
