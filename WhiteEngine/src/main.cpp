@@ -11,10 +11,9 @@ int main() {
 
 	engine.Initialize();
 	spdlog::info("Engine initialized");
-	
 
 	spdlog::info("Engine is running");
-	while (!engine.ShouldClose()) {
+	while (engine.IsRunning()) {
 		engine.ProcessKeyboardInput();
 		engine.Update();
 		engine.Render();
