@@ -12,12 +12,11 @@
 #include "spdlog/spdlog.h"
 
 #include <cmath>
-
 #define PI 3.14159265
 
 Scene::Scene() {
-	setCamera(new Camera(glm::vec3(0.0f, 0.0f, 10.0f)));
-	model = new Model("res/models/brick_cube/brick_cube.obj");
+	setCamera(new Camera(glm::vec3(0.0f, 0.0f, 15.0f)));
+	Model* model = new Model("res/models/brick_cube/brick_cube.obj"); //this need to be replaced with an asset manager
 	shader = new Shader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
 
 	unsigned num = 10;
@@ -32,7 +31,7 @@ Scene::Scene() {
 
 		GameObject* gameobject = new GameObject(model, shader);
 		gameobject->setPosition(glm::vec3(x, y, 0.0f));
-		gameobject->setRotation(glm::vec3(0.0f,  x * 10.0f, y * 10.0f));
+		gameobject->setRotation(glm::vec3(0.0f, i * 10.0f, i * 10.0f));
 		gameobject->setScale(glm::vec3(i * 0.1f));
 		addGameObject(gameobject);
 	}
@@ -42,20 +41,13 @@ void Scene::addGameObject(GameObject* gameobject) {
 	gameobjects.push_back(gameobject);
 }
 
-//Scene::Scene(Camera camera, Model model, Shader shader) {
-//	camera = camera;
-//	model = model;
-//	shader = shader;
-//}
-
 Scene::~Scene() {
 	delete camera;
-	delete model;
 	delete shader;
 }
 
 void Scene::Draw() {
-	glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+	// clear teh screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// set the shader

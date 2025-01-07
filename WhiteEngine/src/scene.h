@@ -6,16 +6,16 @@ class Model;
 class Shader;
 class Camera;
 class GameObject;
+enum Camera_Movement;
 
 class Scene {
 private:
 	std::vector<GameObject*> gameobjects;
-	Model* model = nullptr; //this need to be replaced with an asset manager
 	Shader* shader = nullptr;
 
 public:
-	Camera* camera = nullptr;
-	//Scene(Camera camera, Model model, Shader shader);
+	Camera* camera = nullptr; //this should be private but in engine i call camera to update its location
+
 	void Draw();
 	void Update();
 	Scene();
