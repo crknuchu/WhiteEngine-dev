@@ -55,9 +55,16 @@ add_custom_target(copy_resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${PROJECT_SOURCE_DIR}/res
         ${PROJECT_BINARY_DIR}/res
-        COMMENT "Copying resources into build directory")
+        COMMENT "Copying res into build/res")
+
+add_custom_target(copy_assimp ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/include/assimp/bin
+    ${PROJECT_BINARY_DIR}
+    COMMENT "Copying assimp dll to build directory")
 
 add_dependencies(WhiteEngine copy_resources)
+add_dependencies(WhiteEngine copy_assimp)
 
 # Link libraries
 target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd spdlog::spdlog)
