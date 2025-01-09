@@ -12,7 +12,7 @@ enum Camera_Movement;
 class Scene {
 private:
 	std::vector<GameObject*> gameobjects;
-	std::shared_ptr<Shader> shader = nullptr;
+	std::shared_ptr<Shader> sceneShader;
 
 public:
 	Camera* camera = nullptr; //this should be private but in engine i call camera to update its location

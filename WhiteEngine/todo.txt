@@ -8,3 +8,6 @@ create a better way to handle input
 add hierarchy to gameobjects
 maybe add getters and setters and make scene and application public in engine?
 make scene hava init like application?
+frustum culling
+for asset manager: shaders, models, textures etc should be shared_ptrs 
+add texture class??
