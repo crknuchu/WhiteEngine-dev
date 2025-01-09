@@ -10,14 +10,18 @@
 #include "shader.h"
 #include "gameobject.h"
 #include "spdlog/spdlog.h"
+#include <memory>
 
 #include <cmath>
 #define PI 3.14159265
 
 Scene::Scene() {
 	setCamera(new Camera(glm::vec3(0.0f, 0.0f, 15.0f)));
-	Model* model = new Model("res/models/brick_cube/brick_cube.obj"); //this need to be replaced with an asset manager
-	shader = new Shader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
+	//Model* model = new Model("res/models/brick_cube/brick_cube.obj"); //this need to be replaced with an asset manager
+	//shader = new Shader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
+
+	std::shared_ptr<Model> model = std::make_shared<Model>("res/models/brick_cube/brick_cube.obj");
+	shader = std::make_shared<Shader>("res/shaders/vertex.vert", "res/shaders/fragment.frag");
 
 	unsigned num = 10;
 	unsigned radius = 5;
@@ -43,7 +47,6 @@ void Scene::addGameObject(GameObject* gameobject) {
 
 Scene::~Scene() {
 	delete camera;
-	delete shader;
 }
 
 void Scene::Draw() {

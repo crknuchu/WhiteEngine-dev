@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-GameObject::GameObject(Model* model, Shader* shader) {
+GameObject::GameObject(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader) {
 	this->model = model;
 	this->shader = shader;
 }

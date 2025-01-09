@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 class Model;
 class Shader;
@@ -11,7 +12,7 @@ enum Camera_Movement;
 class Scene {
 private:
 	std::vector<GameObject*> gameobjects;
-	Shader* shader = nullptr;
+	std::shared_ptr<Shader> shader = nullptr;
 
 public:
 	Camera* camera = nullptr; //this should be private but in engine i call camera to update its location

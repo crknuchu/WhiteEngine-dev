@@ -2,18 +2,20 @@
 
 #include "model.h"
 #include "shader.h"
+#include <memory>
 
 class GameObject {
 private:
-	Model* model = nullptr;
-	Shader* shader = nullptr;
+	std::shared_ptr<Model> model;
+	std::shared_ptr<Shader> shader;
+
 	glm::vec3 position = glm::vec3(0.0f);
 	glm::vec3 rotation = glm::vec3(0.0f);
 	glm::vec3 scale = glm::vec3(1.0f);
 	glm::mat4 modelMatrix = glm::mat4(1.0f);;
 
 public:
-	GameObject(Model* model, Shader* shader);
+	GameObject(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader);
 	GameObject();
 	~GameObject();
 
