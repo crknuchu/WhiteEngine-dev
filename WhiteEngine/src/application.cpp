@@ -72,12 +72,8 @@ int Application::ShouldClose() {
     return glfwWindowShouldClose(window);
 }
 
-void Application::Terminate() {
-    glfwTerminate();
-}
-
 Application::~Application() {
-	Terminate();
+    glfwTerminate();
 }
 
 void Application::GLFW_FrameBufferSizeCallback(GLFWwindow* window, int width, int height) {

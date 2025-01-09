@@ -6,9 +6,6 @@ int main() {
 
 	Engine engine;
 
-	engine.StartWindow();
-	spdlog::info("Window started");
-
 	engine.Initialize();
 	spdlog::info("Engine initialized");
 

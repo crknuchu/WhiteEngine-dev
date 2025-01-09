@@ -12,7 +12,6 @@ public:
 
 	int Init();
 	void SwapBuffers();
-	void Terminate();
 	int ShouldClose();
 	void LoadIcon();
 

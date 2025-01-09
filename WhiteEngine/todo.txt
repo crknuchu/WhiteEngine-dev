@@ -6,4 +6,5 @@ scene class need a better way to load objects
 add imgui
 create a better way to handle input
 add hierarchy to gameobjects
-
+maybe add getters and setters and make scene and application public in engine?
+make scene hava init like application?

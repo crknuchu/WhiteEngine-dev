@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 class Application;
 class Scene;
 class GLFWwindow;
@@ -9,17 +11,15 @@ private:
 	double deltaTime = 0;
 	double lastFrame = 0;
 public:
-	static Engine* instance;
-	Application* application;
-	Scene* scene{ nullptr };
+	std::unique_ptr<Application> application{ nullptr };
+	std::unique_ptr<Scene> scene{ nullptr };
 
-	int StartWindow();
+	void CreateWindow();
 	void Initialize();
 	bool IsRunning() const;
 	void Render();
 	bool ShouldClose() const;
 	void CreateScene();
-	void DestroyScene();
 	void Update();
 	void CalculateDeltaTime();
 	void ProcessKeyboardInput();

@@ -64,7 +64,9 @@ void Scene::Draw() {
 }
 
 void Scene::Update() {
-	//gameobject->update();
+	/*for (auto& gameobject : gameobjects) {
+		gameobject->update();
+	}*/
 }
 
 void Scene::setCamera(Camera* camera) {

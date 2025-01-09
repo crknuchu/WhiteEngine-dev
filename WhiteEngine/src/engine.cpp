@@ -16,10 +16,10 @@ extern "C" {
 }
 #endif
 
-Engine* Engine::instance{ nullptr };
-
 void Engine::Initialize() {
+	CreateWindow();
 	CreateScene();
+	//this need to be changed
 	glfwSetWindowUserPointer(application->window, this);
 	glfwSetCursorPosCallback(application->window, CursorPositionCallback);
 }
@@ -28,11 +28,10 @@ bool Engine::IsRunning() const {
 	return !ShouldClose();
 }
 
-int Engine::StartWindow() {
-	if (application->Init()) {
-		return -1;
-	}
-	return 0;
+void Engine::CreateWindow() {
+	application = std::make_unique<Application>();
+	if (application->Init())
+		spdlog::error("Window failed to start");
 }
 
 void Engine::Render() {
@@ -42,6 +41,7 @@ void Engine::Render() {
 
 void Engine::Update() {
 	CalculateDeltaTime();
+	scene->Update();
 	glfwPollEvents();
 }
 
@@ -57,32 +57,16 @@ bool Engine::ShouldClose() const {
 
 void Engine::CreateScene()
 {
-	if (scene != nullptr)
-	{
-		DestroyScene();
-	}
-	scene = new Scene();
+	scene = std::make_unique<Scene>();
 }
 
-void Engine::DestroyScene()
-{
-	if (scene != nullptr)
-	{
-		delete scene;
-		scene = nullptr;
-	}
-}
 
 Engine::Engine() {
-	instance = this;
-	application = new Application(); // Allocate memory for Application
+	
 }
 
 Engine::~Engine() {
-	application->Terminate();
-	delete application;
-	application = nullptr;
-	DestroyScene();
+
 }
 
 void Engine::CursorPositionCallback(GLFWwindow* window, double xposIn, double yposIn)
