@@ -12,3 +12,4 @@ frustum culling
 add texture class??
 assetmanager and camera should be moved to engine from scene
 implement a physics engine
+research entity component system
