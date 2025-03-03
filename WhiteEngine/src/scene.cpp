@@ -16,6 +16,25 @@
 #include <cmath>
 
 const float PI = 3.14159265;
+int index = 0;
+float cx = 0.0f;
+float cy = 0.0f;
+float rotationSpeed = 10.0f;
+float angle = 0.0f;
+
+void rotatePoint(float& x, float& y, float cx, float cy, float theta) {
+	// Translate point to origin
+	float translatedX = x - cx;
+	float translatedY = y - cy;
+
+	// Rotate point
+	float rotatedX = translatedX * cos(theta) - translatedY * sin(theta);
+	float rotatedY = translatedX * sin(theta) + translatedY * cos(theta);
+
+	// Translate point back
+	x = rotatedX + cx;
+	y = rotatedY + cy;
+}
 
 Scene::Scene() {
 	AssetManager assetManager;
@@ -69,10 +88,19 @@ void Scene::Draw() {
 	}
 }
 
-void Scene::Update() {
-	/*for (auto& gameobject : gameobjects) {
-		gameobject->update();
-	}*/
+void Scene::Update(double deltaTime) {
+		angle = rotationSpeed * deltaTime;
+
+		// Convert angle to radians
+		float theta = angle * PI / 180.0f;
+
+		// Update positions of all rectangles
+		for (auto& gameobject : gameobjects) {
+			glm::vec3 position = gameobject->getPosition();
+			rotatePoint(position.x, position.y, cx, cy, theta);
+			gameobject->setPosition(position);
+			//rectangle.setRotation(angle);
+		}
 }
 
 void Scene::setCamera(Camera* camera) {

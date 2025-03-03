@@ -41,7 +41,7 @@ void Engine::Render() {
 
 void Engine::Update() {
 	CalculateDeltaTime();
-	scene->Update();
+	scene->Update(deltaTime);
 	glfwPollEvents();
 }
 

@@ -18,7 +18,7 @@ public:
 	Camera* camera = nullptr; //this should be private but in engine i call camera to update its location
 
 	void Draw();
-	void Update();
+	void Update(double deltaTime);
 	Scene();
 	~Scene();
 
