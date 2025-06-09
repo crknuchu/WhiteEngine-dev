@@ -1,5 +1,6 @@
 #include "engine.h"
 #include "spdlog/spdlog.h"
+#include "btBulletCollisionCommon.h"
 
 int main() {
 	spdlog::info("© 2024 crknuchu. All rights reserved.");

@@ -44,8 +44,11 @@ include_directories(${ASSIMP_DIR}/include)
 # Specify the library directory for Assimp
 link_directories(${ASSIMP_DIR}/lib)
 
-
+# add spdlog
 add_subdirectory(include/spdlog)
+
+# Add Bullet
+add_subdirectory(include/bullet)
 
 # Add executable
 add_executable(WhiteEngine  ${SOURCE_FILES} ${HEADER_FILES})
@@ -67,4 +70,8 @@ add_dependencies(WhiteEngine copy_resources)
 add_dependencies(WhiteEngine copy_assimp)
 
 # Link libraries
-target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd spdlog::spdlog)
+target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd spdlog::spdlog BulletDynamics BulletCollision LinearMath)
+
+target_include_directories(WhiteEngine PUBLIC
+    ${CMAKE_SOURCE_DIR}/include/bullet/src
+)
