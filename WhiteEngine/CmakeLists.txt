@@ -1,9 +1,16 @@
 cmake_minimum_required(VERSION 3.15...3.31)
+
+# THIS HAS TO COME BEFORE THE PROJECT LINE
+set(CMAKE_C_COMPILER "gcc")
+set(CMAKE_CXX_COMPILER "g++")
+# THIS HAS TO COME BEFORE THE PROJECT LINE
+
 project(WhiteEngine)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 
 # add source files
 file(GLOB_RECURSE SOURCE_FILES
@@ -35,6 +42,14 @@ include_directories(${STB_IMAGE_INCLUDE_DIRS})
 #add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
 
 # Add Assimp
+if(WIN32)
+    set(ASSIMP_LIB assimp-vc143-mtd)  # Or whatever your DLL is called
+elseif(APPLE)
+    set(ASSIMP_LIB libassimp.dylib)
+else()
+    set(ASSIMP_LIB assimp)
+endif()
+
 # Set the path to the Assimp library
 set(ASSIMP_DIR "include/assimp")
 
@@ -70,7 +85,7 @@ add_dependencies(WhiteEngine copy_resources)
 add_dependencies(WhiteEngine copy_assimp)
 
 # Link libraries
-target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL assimp-vc143-mtd spdlog::spdlog BulletDynamics BulletCollision LinearMath)
+target_link_libraries(WhiteEngine PRIVATE glad glfw OpenGL::GL ${ASSIMP_LIB} spdlog::spdlog BulletDynamics BulletCollision LinearMath)
 
 target_include_directories(WhiteEngine PUBLIC
     ${CMAKE_SOURCE_DIR}/include/bullet/src
