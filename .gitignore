@@ -363,3 +363,5 @@ FodyWeavers.xsd
 
 #dependencies/
 include/
+build/
+.DS_Store
